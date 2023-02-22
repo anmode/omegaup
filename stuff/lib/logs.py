@@ -10,7 +10,7 @@ import argparse
 import datetime
 import logging
 
-from typing import Any, Dict, Mapping
+from typing import Any, Dict, Mapping, Union
 
 from pythonjsonlogger import jsonlogger  # type: ignore
 
@@ -65,7 +65,7 @@ def init(program: str, args: argparse.Namespace) -> None:
     '''
     log_level = (logging.DEBUG if args.verbose else
                  logging.INFO if not args.quiet else logging.ERROR)
-    formatter: logging.Formatter
+    formatter: Union[_CustomJsonFormatter, logging.Formatter]
     if args.log_json:
         if args.logfile:
             log_handler: logging.Handler = logging.FileHandler(args.logfile)
